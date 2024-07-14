@@ -1,6 +1,251 @@
 export const defaultEditorContent = {
   type: "doc",
   content: [
-    {'type': 'doc', 'content': [{'type': 'heading', 'attrs': {'level': 2}, 'content': [{'type': 'text', 'text': 'Global Grant Proposal: A Model to Create a Sustainable Rise Out of Poverty for Generations'}]}, {'type': 'heading', 'attrs': {'level': 3}, 'content': [{'type': 'text', 'text': 'Introduction'}]}, {'type': 'paragraph', 'content': [{'type': 'text', 'text': 'The project aims to provide business management training, equipment, and grants to 150 women in Narok county, Kenya, with the goal of lifting them out of poverty. The project emphasizes community participation and engagement at every phase.'}]}, {'type': 'heading', 'attrs': {'level': 3}, 'content': [{'type': 'text', 'text': 'Methods'}]}, {'type': 'paragraph', 'content': [{'type': 'text', 'text': 'The project involves program assessment, demographic data collection, business analysis, and project planning. It also includes training, mentorship, and community grants for the women involved.'}]}, {'type': 'heading', 'attrs': {'level': 3}, 'content': [{'type': 'text', 'text': 'Results'}]}, {'type': 'paragraph', 'content': [{'type': 'text', 'text': 'The demographic data reveals the challenges faced by the women, including low income, illiteracy, and limited access to resources. The business analysis highlights the skills and challenges faced by the women in starting and growing businesses.'}]}, {'type': 'heading', 'attrs': {'level': 3}, 'content': [{'type': 'text', 'text': 'Discussion'}]}, {'type': 'paragraph', 'content': [{'type': 'text', 'text': 'The discussion emphasizes the potential impact of the project, including the expected number of beneficiaries and the broader community benefits. It also addresses the financial proposal, budget, and collaboration with partner organizations.'}]}]}
+    {
+      type: "heading",
+      attrs: { level: 2 },
+      content: [{ type: "text", text: "Impact Evaluation of Small Business Program on Women Entrepreneurs in East Africa" }],
+    },
+    {
+      type: "paragraph",
+      content: [
+        {
+          type: "text",
+          marks: [
+            {
+              type: "link",
+              attrs: {
+                href: "https://github.com/steven-tey/novel",
+                target: "_blank",
+              },
+            },
+          ],
+          text: "Novel",
+        },
+        {
+          type: "text",
+          text: " is a Notion-style WYSIWYG editor with AI-powered autocompletion. Built with ",
+        },
+        {
+          type: "text",
+          marks: [
+            {
+              type: "link",
+              attrs: {
+                href: "https://tiptap.dev/",
+                target: "_blank",
+              },
+            },
+          ],
+          text: "Tiptap",
+        },
+        { type: "text", text: " + " },
+        {
+          type: "text",
+          marks: [
+            {
+              type: "link",
+              attrs: {
+                href: "https://sdk.vercel.ai/docs",
+                target: "_blank",
+              },
+            },
+          ],
+          text: "Vercel AI SDK",
+        },
+        { type: "text", text: "." },
+      ],
+    },
+    {
+      type: "heading",
+      attrs: { level: 3 },
+      content: [{ type: "text", text: "Installation" }],
+    },
+    {
+      type: "codeBlock",
+      attrs: { language: null },
+      content: [{ type: "text", text: "npm i novel" }],
+    },
+    {
+      type: "heading",
+      attrs: { level: 3 },
+      content: [{ type: "text", text: "Usage" }],
+    },
+    {
+      type: "codeBlock",
+      attrs: { language: null },
+      content: [
+        {
+          type: "text",
+          text: 'import { Editor } from "novel";\n\nexport default function App() {\n  return (\n     <Editor />\n  )\n}',
+        },
+      ],
+    },
+    {
+      type: "heading",
+      attrs: { level: 3 },
+      content: [{ type: "text", text: "Features" }],
+    },
+    {
+      type: "orderedList",
+      attrs: { tight: true, start: 1 },
+      content: [
+        {
+          type: "listItem",
+          content: [
+            {
+              type: "paragraph",
+              content: [{ type: "text", text: "Slash menu & bubble menu" }],
+            },
+          ],
+        },
+        {
+          type: "listItem",
+          content: [
+            {
+              type: "paragraph",
+              content: [
+                { type: "text", text: "AI autocomplete (type " },
+                { type: "text", marks: [{ type: "code" }], text: "++" },
+                {
+                  type: "text",
+                  text: " to activate, or select from slash menu)",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: "listItem",
+          content: [
+            {
+              type: "paragraph",
+              content: [
+                {
+                  type: "text",
+                  text: "Image uploads (drag & drop / copy & paste, or select from slash menu) ",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: "listItem",
+          content: [
+            {
+              type: "paragraph",
+              content: [
+                {
+                  type: "text",
+                  text: "Add tweets from the command slash menu:",
+                },
+              ],
+            },
+            {
+              type: "twitter",
+              attrs: {
+                src: "https://x.com/elonmusk/status/1800759252224729577",
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: "image",
+      attrs: {
+        src: "https://public.blob.vercel-storage.com/pJrjXbdONOnAeZAZ/banner-2wQk82qTwyVgvlhTW21GIkWgqPGD2C.png",
+        alt: "banner.png",
+        title: "banner.png",
+        width: null,
+        height: null,
+      },
+    },
+    { type: "horizontalRule" },
+    {
+      type: "heading",
+      attrs: { level: 3 },
+      content: [{ type: "text", text: "Learn more" }],
+    },
+    {
+      type: "taskList",
+      content: [
+        {
+          type: "taskItem",
+          attrs: { checked: false },
+          content: [
+            {
+              type: "paragraph",
+              content: [
+                { type: "text", text: "Star us on " },
+                {
+                  type: "text",
+                  marks: [
+                    {
+                      type: "link",
+                      attrs: {
+                        href: "https://github.com/steven-tey/novel",
+                        target: "_blank",
+                      },
+                    },
+                  ],
+                  text: "GitHub",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: "taskItem",
+          attrs: { checked: false },
+          content: [
+            {
+              type: "paragraph",
+              content: [
+                { type: "text", text: "Install the " },
+                {
+                  type: "text",
+                  marks: [
+                    {
+                      type: "link",
+                      attrs: {
+                        href: "https://www.npmjs.com/package/novel",
+                        target: "_blank",
+                      },
+                    },
+                  ],
+                  text: "NPM package",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: "taskItem",
+          attrs: { checked: false },
+          content: [
+            {
+              type: "paragraph",
+              content: [
+                {
+                  type: "text",
+                  marks: [
+                    {
+                      type: "link",
+                      attrs: {
+                        href: "https://vercel.com/templates/next.js/novel",
+                        target: "_blank",
+                      },
+                    },
+                  ],
+                  text: "Deploy your own",
+                },
+                { type: "text", text: " to Vercel" },
+              ],
+            },
+          ],
+        },
+      ],
+    },
   ],
 };
