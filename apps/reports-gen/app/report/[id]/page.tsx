@@ -6,8 +6,9 @@ import TailwindAdvancedEditor from "@/components/tailwind/advanced-editor";
 import { Button } from "@/components/tailwind/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/tailwind/ui/dialog";
 import Menu from "@/components/tailwind/ui/menu";
+import Link from "next/link";
 import { ScrollArea } from "@/components/tailwind/ui/scroll-area";
-import { BookOpen } from "lucide-react";
+import { ArrowLeft, BookOpen} from "lucide-react";
 
 export default function ReportPage() {
   const [reportData, setReportData] = useState(null);
@@ -39,6 +40,11 @@ export default function ReportPage() {
     return (
       <div className="flex min-h-screen flex-col items-center gap-4 py-4 sm:px-5">
         <div className="flex w-full max-w-screen-lg items-center gap-2 px-4 sm:mb-[calc(20vh)]">
+          <Link href={`/`} className="mt-4 inline-block">
+            <div className="flex ml-auto">
+              <ArrowLeft className="h-4 w-4"/>
+            </div>
+          </Link>
           <Dialog>
             <DialogTrigger asChild>
               <Button className="ml gap-2">

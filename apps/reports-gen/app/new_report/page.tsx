@@ -3,6 +3,7 @@
 import { Button } from "@/components/tailwind/ui/button";
 import Menu from "@/components/tailwind/ui/menu";
 import { useState } from 'react';
+import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import { useDropzone } from 'react-dropzone';
 
@@ -36,9 +37,7 @@ export default function NewReportPage() {
             throw new Error('Failed to upload file to S3');
         }
 
-        const fileUrl = s3Result.fileUrl;
-        const report_url = fileUrl;
-        const data_url = "https://arthack.s3.amazonaws.com/public/report_hack/finance.xlsx";
+        const report_url = s3Result.fileUrl;
 
         // Make long API call to create submission
         const submissionResponse = await fetch('/api/generateReport', {
@@ -46,7 +45,7 @@ export default function NewReportPage() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ report_url, data_url })
+            body: JSON.stringify({ report_url })
         });
 
         const data = await submissionResponse.json();
@@ -80,7 +79,9 @@ export default function NewReportPage() {
     return (
         <div className="flex min-h-screen flex-col items-center gap-8 py-8 bg-gray-50 dark:bg-gray-900 sm:px-5">
         <div className="flex w-full max-w-screen-lg items-center justify-between px-4 sm:mb-16">
-            <div className="text-2xl font-bold text-gray-800 dark:text-gray-200">Automatic Report Generator</div>
+            <Link href={`/`} className="mt-4 inline-block">
+                <div className="text-2xl font-bold text-gray-800 dark:text-gray-200">Automatic Report Generator</div>
+            </Link>
             <div className="flex ml-auto">
             <Menu />
             </div>

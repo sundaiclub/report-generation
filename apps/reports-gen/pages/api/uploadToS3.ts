@@ -63,6 +63,7 @@ export default async (req, res) => {
         Key: `public/report_hack/uploads/${fileName}`,
         Body: fileContent,
         ContentType: file.mimetype,
+        ACL: 'public-read'
       };
 
       console.log("Uploading file to S3...");
