@@ -10,8 +10,9 @@ import { useDropzone } from 'react-dropzone';
 export default function NewReportPage() {
     const [name, setName] = useState('New Report');
     const [version, setVersion] = useState(1);
-    const [file, setFile] = useState(new Blob());
+    const [file, setFile] = useState<any>(null);
     const [loading, setLoading] = useState(false);
+    const [generating, setGenerating] = useState(false);
     const router = useRouter();
 
     const onDrop = (acceptedFiles) => {
@@ -42,6 +43,7 @@ export default function NewReportPage() {
 
         const report_url = s3Result.fileUrl;
 
+        setGenerating(true);
         // Make long API call to create submission
         const submissionResponse = await fetch('/api/generateReport', {
             method: 'POST',
@@ -73,9 +75,12 @@ export default function NewReportPage() {
 
         // Navigate to the new report page
         router.push(`/report/${id}`);
+        setLoading(false);
+        setGenerating(false);
         } catch (error) {
         console.error('Error submitting report:', error);
         setLoading(false);
+        setGenerating(false);
         }
     };
 
@@ -127,11 +132,11 @@ export default function NewReportPage() {
             )}
             </div>
             <Button
-            className="bg-indigo-600 dark:bg-indigo-500 text-white hover:bg-indigo-700 dark:hover:bg-indigo-600 px-6 py-3 rounded-lg text-lg"
-            onClick={handleSubmit}
-            disabled={loading}
+                className="bg-indigo-600 dark:bg-indigo-500 text-white hover:bg-indigo-700 dark:hover:bg-indigo-600 px-6 py-3 rounded-lg text-lg"
+                onClick={handleSubmit}
+                disabled={loading}
             >
-            {loading ? 'Submitting...' : 'Submit'}
+            {loading ? generating ? 'Generating...' : 'Submitting...' : 'Submit'}
             </Button>
         </div>
         </div>
