@@ -11,9 +11,13 @@ import { ScrollArea } from "@/components/tailwind/ui/scroll-area";
 import { ArrowLeft, BookOpen} from "lucide-react";
 
 export default function ReportPage() {
-  const [reportData, setReportData] = useState(null);
-  const params = useParams();
-  const id = params.id;
+  const [reportData, setReportData] = useState<any>(null);
+  const params = useParams<any>();
+  let id:number = 0;
+  if (params && params.id) {
+    id = parseInt(params.id);
+  }
+
 
   useEffect(() => {
     if (id) {

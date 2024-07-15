@@ -103,7 +103,7 @@ const TailwindAdvancedEditor = ({ initialContent, reportData }) => {
           <EditorCommand className="z-50 h-auto max-h-[330px] overflow-y-auto rounded-md border border-muted bg-background px-1 py-2 shadow-md transition-all">
             <EditorCommandEmpty className="px-2 text-muted-foreground">No results</EditorCommandEmpty>
             <EditorCommandList>
-              {suggestionItems.map((item) => (
+              {suggestionItems.map((item:any) => (
                 <EditorCommandItem
                   value={item.title}
                   onCommand={(val) => item.command(val)}

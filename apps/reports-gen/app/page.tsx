@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useState, useEffect } from 'react';
 
 export default function Page() {
-  const [reports, setReports] = useState([]);
+  const [reports, setReports] = useState<any>([]);
 
   useEffect(() => {
     async function fetchReports() {

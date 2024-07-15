@@ -10,7 +10,7 @@ import { useDropzone } from 'react-dropzone';
 export default function NewReportPage() {
     const [name, setName] = useState('New Report');
     const [version, setVersion] = useState(1);
-    const [file, setFile] = useState(null);
+    const [file, setFile] = useState(new Blob());
     const [loading, setLoading] = useState(false);
     const router = useRouter();
 
@@ -25,6 +25,9 @@ export default function NewReportPage() {
         try {
         // Upload file to S3
         const formData = new FormData();
+        if (!file) {
+            throw new Error('No file selected');
+        }
         formData.append('file', file);
 
         const s3Response = await fetch('/api/uploadToS3', {
