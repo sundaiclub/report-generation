@@ -1,5 +1,5 @@
 import { S3Client, PutObjectCommand, type PutObjectCommandInput } from "@aws-sdk/client-s3";
-import { IncomingForm, File } from "formidable";
+import { IncomingForm } from "formidable";
 import fs from "fs";
 import path from "path";
 import crypto from "crypto";
@@ -23,15 +23,7 @@ export default async (req, res) => {
     return res.status(405).json({ success: false, message: "Method not allowed" });
   }
 
-  const uploadDir = path.join(process.cwd(), "/uploads");
-
-  // Ensure the upload directory exists
-  if (!fs.existsSync(uploadDir)) {
-    fs.mkdirSync(uploadDir, { recursive: true });
-  }
-
   const form = new IncomingForm();
-  form.uploadDir = uploadDir;
   form.keepExtensions = true;
 
   form.parse(req, async (err, fields, files) => {
@@ -51,7 +43,13 @@ export default async (req, res) => {
     const file = fileArray[0];
 
     try {
-      const fileContent = fs.readFileSync(file.filepath);
+      const fileContent = await new Promise((resolve, reject) => {
+        const chunks = <any>[];
+        const stream = fs.createReadStream(file.filepath);
+        stream.on('data', chunk => chunks.push(chunk));
+        stream.on('error', reject);
+        stream.on('end', () => resolve(Buffer.concat(chunks)));
+      });
 
       // Generate a random hash for the file name
       const hash = crypto.randomBytes(16).toString("hex");
@@ -74,8 +72,6 @@ export default async (req, res) => {
     } catch (error) {
       console.error("Error uploading to S3:", error);
       return res.status(500).json({ success: false, message: "Error uploading to S3" });
-    } finally {
-      fs.unlinkSync(file.filepath); // Clean up the temporary file
     }
   });
 };

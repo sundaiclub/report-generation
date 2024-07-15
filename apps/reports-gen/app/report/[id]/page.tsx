@@ -46,14 +46,18 @@ export default function ReportPage() {
         <div className="flex w-full max-w-screen-lg items-center gap-2 px-4 sm:mb-[calc(20vh)]">
           <Link href={`/`} className="mt-4 inline-block">
             <div className="flex ml-auto">
-              <ArrowLeft className="h-4 w-4"/>
+              <Button className="ml gap-2">
+                <ArrowLeft className="h-4 w-4"/>
+                Back
+              </Button>
             </div>
           </Link>
-          <Dialog>
+          <div className="flex ml-auto">
+            <Menu />
+            <Dialog>
             <DialogTrigger asChild>
               <Button className="ml gap-2">
                 <BookOpen className="h-4 w-4" />
-                Show in dialog
               </Button>
             </DialogTrigger>
             <DialogContent className="flex max-w-3xl h-[calc(100vh-24px)]">
@@ -61,8 +65,6 @@ export default function ReportPage() {
               </ScrollArea>
             </DialogContent>
           </Dialog>
-          <div className="flex ml-auto">
-            <Menu />
           </div>
         </div>
           Loading ...
@@ -72,25 +74,32 @@ export default function ReportPage() {
 
   return (
     <div className="flex min-h-screen flex-col items-center gap-4 py-4 sm:px-5">
-      <div className="flex w-full max-w-screen-lg items-center gap-2 px-4 sm:mb-[calc(20vh)]">
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button className="ml gap-2">
-              <BookOpen className="h-4 w-4" />
-              Show in dialog
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="flex max-w-3xl h-[calc(100vh-24px)]">
-            <ScrollArea className="max-h-screen">
-              <TailwindAdvancedEditor initialContent={reportData.data} reportData={reportData} />
-            </ScrollArea>
-          </DialogContent>
-        </Dialog>
-        <div className="flex ml-auto">
-          <Menu />
+        <div className="flex w-full max-w-screen-lg items-center gap-2 px-4 sm:mb-[calc(20vh)]">
+          <Link href={`/`} className="mt-4 inline-block">
+            <div className="flex ml-auto">
+              <Button className="ml gap-2">
+                <ArrowLeft className="h-4 w-4"/>
+                Back
+              </Button>
+            </div>
+          </Link>
+          <div className="flex ml-auto">
+            <Menu />
+            <Dialog>
+            <DialogTrigger asChild>
+              <Button className="ml gap-2">
+                <BookOpen className="h-4 w-4" />
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="flex max-w-3xl h-[calc(100vh-24px)]">
+              <ScrollArea className="max-h-screen">
+                <TailwindAdvancedEditor initialContent={reportData.data} reportData={reportData} />
+              </ScrollArea>
+            </DialogContent>
+          </Dialog>
+          </div>
         </div>
+          <TailwindAdvancedEditor initialContent={reportData.data} reportData={reportData} />
       </div>
-      <TailwindAdvancedEditor initialContent={reportData.data} reportData={reportData} />
-    </div>
   );
 }

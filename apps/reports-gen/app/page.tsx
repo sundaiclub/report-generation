@@ -80,7 +80,7 @@ export default function Page() {
                 <p className="text-gray-600 dark:text-gray-400">First Created: {new Date(report.createdAt).toLocaleDateString()}</p>
               </div>
               <div className="flex items-center gap-2">
-                <Link href={`/report/${report.id}`} className="mt-4 inline-block">
+                <Link href={`/report/${report.id}`} className="inline-block">
                   <Button className="bg-indigo-600 dark:bg-indigo-500 text-white hover:bg-indigo-700 dark:hover:bg-indigo-600 px-4 py-2 rounded">
                     View Report
                   </Button>
