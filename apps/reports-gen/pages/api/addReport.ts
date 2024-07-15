@@ -3,23 +3,41 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 type Data = {
 	success: boolean;
-	info?: any;
+	id?: number;
+	data?: any;
 };
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-	let { name, data, version } = req.body;
+	let { id, name, data, version } = req.body;
 
+	console.log('Adding report:', name, data, version);
 	if (!name || !data || !version) {
 		res.status(200).json({ success: false });
 	}
 
-	await prisma.reports.create({
+	let report;
+	if (id) {
+		console.log('Updating report:', id);
+		// Update existing report
+		report = await prisma.reports.update({
+		where: { id: id },
 		data: {
 			name,
 			data,
 			version
 		}
-	});
+		});
+	} else {
+		// Create new report
+		report = await prisma.reports.create({
+		data: {
+			name,
+			data,
+			version
+		}
+		});
+	}
 
-	res.status(200).json({ success: true });
+	console.log('Added report:', report.id);
+	res.status(200).json({ success: true, data: report, id: report.id });
 }

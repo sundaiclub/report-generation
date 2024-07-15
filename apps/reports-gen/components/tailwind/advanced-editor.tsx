@@ -29,8 +29,7 @@ const hljs = require('highlight.js');
 
 const extensions = [...defaultExtensions, slashCommand];
 
-const TailwindAdvancedEditor = (page_id) => {
-  const [initialContent, setInitialContent] = useState<null | JSONContent>(null);
+const TailwindAdvancedEditor = ({ initialContent, reportData }) => {
   const [saveStatus, setSaveStatus] = useState("Saved");
   const [charsCount, setCharsCount] = useState();
 
@@ -39,30 +38,22 @@ const TailwindAdvancedEditor = (page_id) => {
   const [openLink, setOpenLink] = useState(false);
   const [openAI, setOpenAI] = useState(false);
 
-
-  const [reportData, setReportData] = useState({
-    name: 'Sample Report 2',
-    version: 2
-  });
-
   const saveDocument = async (data: JSONContent) => {
     const response = await fetch('/api/addReport', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ ...reportData, data })
+      body: JSON.stringify({ id: reportData.id, ...reportData, data })
     });
     const result = await response.json();
     console.log(result.data);
   };
 
-  //Apply Codeblock Highlighting on the HTML from editor.getHTML()
+  // Apply Codeblock Highlighting on the HTML from editor.getHTML()
   const highlightCodeblocks = (content: string) => {
     const doc = new DOMParser().parseFromString(content, 'text/html');
     doc.querySelectorAll('pre code').forEach((el) => {
-      // @ts-ignore
-      // https://highlightjs.readthedocs.io/en/latest/api.html?highlight=highlightElement#highlightelement
       hljs.highlightElement(el);
     });
     return new XMLSerializer().serializeToString(doc);
@@ -77,12 +68,6 @@ const TailwindAdvancedEditor = (page_id) => {
     await saveDocument(json);
     setSaveStatus("Saved");
   }, 500);
-
-  useEffect(() => {
-    const content = window.localStorage.getItem("novel-content");
-    if (content) setInitialContent(JSON.parse(content));
-    else setInitialContent(defaultEditorContent);
-  }, []);
 
   if (!initialContent) return null;
 
@@ -106,8 +91,7 @@ const TailwindAdvancedEditor = (page_id) => {
             handlePaste: (view, event) => handleImagePaste(view, event, uploadFn),
             handleDrop: (view, event, _slice, moved) => handleImageDrop(view, event, moved, uploadFn),
             attributes: {
-              class:
-                "prose prose-lg dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full",
+              class: "prose prose-lg dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full",
             },
           }}
           onUpdate={({ editor }) => {

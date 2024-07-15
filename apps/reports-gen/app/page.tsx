@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/tailwind/ui/button";
 import Menu from "@/components/tailwind/ui/menu";
-import { BookOpen, GithubIcon } from "lucide-react";
+import { BookOpen, GithubIcon, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect } from 'react';
 
@@ -24,6 +24,26 @@ export default function Page() {
     fetchReports();
   }, []);
 
+  const deleteReport = async (id) => {
+    try {
+      const response = await fetch('/api/deleteReport', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id })
+      });
+      const result = await response.json();
+      if (result.success) {
+        setReports(reports.filter(report => report.id !== id));
+      } else {
+        console.error('Failed to delete report');
+      }
+    } catch (error) {
+      console.error('Error deleting report:', error);
+    }
+  };
+
   return (
     <div className="flex min-h-screen flex-col items-center gap-8 py-8 bg-gray-50 dark:bg-gray-900 sm:px-5">
       <div className="flex w-full max-w-screen-lg items-center justify-between px-4 sm:mb-16">
@@ -41,7 +61,7 @@ export default function Page() {
       </div>
 
       <div className="flex w-full max-w-screen-lg gap-8 px-4 pt-4 sm:px-0 justify-center">
-        <Link href="/report">
+        <Link href="/new_report">
           <Button className="flex items-center gap-2 bg-indigo-600 dark:bg-indigo-500 text-white hover:bg-indigo-700 dark:hover:bg-indigo-600 px-4 py-2 rounded">
             <BookOpen className="h-4 w-4" />
             Generate Report
@@ -59,11 +79,20 @@ export default function Page() {
                 <p className="text-gray-600 dark:text-gray-400">Last Modified: {new Date(report.updatedAt).toLocaleDateString()}</p>
                 <p className="text-gray-600 dark:text-gray-400">First Created: {new Date(report.createdAt).toLocaleDateString()}</p>
               </div>
-              <Link href={`/report/${report.id}`} className="mt-4 inline-block">
-                <Button className="bg-indigo-600 dark:bg-indigo-500 text-white hover:bg-indigo-700 dark:hover:bg-indigo-600 px-4 py-2 rounded">
-                  View Report
+              <div className="flex items-center gap-2">
+                <Link href={`/report/${report.id}`} className="mt-4 inline-block">
+                  <Button className="bg-indigo-600 dark:bg-indigo-500 text-white hover:bg-indigo-700 dark:hover:bg-indigo-600 px-4 py-2 rounded">
+                    View Report
+                  </Button>
+                </Link>
+                <Button
+                  className="bg-red-600 dark:bg-red-500 text-white hover:bg-red-700 dark:hover:bg-red-600 px-4 py-2 rounded"
+                  onClick={() => deleteReport(report.id)}
+                >
+                  <Trash2 className="h-4 w-4" />
+                  Delete
                 </Button>
-              </Link>
+              </div>
             </div>
           </div>
         ))}
